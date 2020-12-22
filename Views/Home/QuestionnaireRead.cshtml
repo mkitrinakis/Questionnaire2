@@ -1,0 +1,139 @@
+﻿@model Questionnaire2.Models.QuestionnaireModel
+
+@{
+    ViewData["Title"] = "QuestionnaireRead";
+}
+
+<h1>QuestionnaireRead</h1>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+
+    if (!Model.ErrorMessage.Trim().Equals(""))
+    {
+        <div class="alert alert-danger col-md-12">
+            @Html.DisplayFor(model => model.ErrorMessage)
+
+            <br />
+        </div>
+    }
+
+<div class="form-group ">
+    
+      @*<div class="container">
+          <div class="row">
+              <div class="col-2">
+                  @Html.LabelFor(model => model.SchoolCode, new { style = "display: none;" })
+              </div>
+              <div class="col-6">
+                  @Html.TextBoxFor(model => model.SchoolCode, new { style = "display: none;" })
+              </div>
+
+          </div>
+      </div>
+
+      <div class="col-md-1 ">
+          <b> Κατάσταση </b>
+      </div>
+      <div class="row">
+          <div class="col-6 Minedu-margin-bottom"> &nbsp; </div>
+      </div>
+    <div class="col-md-3 Minedu-row-stripped  ">
+          21
+      </div>
+      <div class="col-md-4 Minedu-row-stripped ">
+          22
+      </div>
+
+      <div class="col-md-5">
+          23
+      </div>
+    <div class="row">
+        <div class="col-2">
+            @Html.LabelFor(model => model.SNoPC, new { @class = " control-label" })
+        </div>
+        <div class="col-6">
+            @Html.DisplayFor(model => model.SNoPC, new { @class = " control-label" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2">
+            @Html.LabelFor(model => model.OKPC, new { @class = " control-label" })
+        </div>
+        <div class="col4">
+            @if (Model.OKPC)
+            {<b> Έχει Παραδοθεί</b> }
+            else
+            { <b> <font color="red"> Δεν έχει Παραδοθεί</font> </b>}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-2 ">
+            @Html.LabelFor(model => model.SNoPrinter, new { @class = " control-label" })
+        </div>
+        <div class="col-4 ">
+            @Html.DisplayFor(model => model.SNoPrinter, new { @class = " control-label" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-2 ">
+            @Html.LabelFor(model => model.OKPrinter, new { @class = " control-label" })
+        </div>
+        <div class="col-4 ">
+            @if (Model.OKPrinter)
+            {<b> Έχει Παραδοθεί</b> }
+            else
+            { <b> <font color="red"> Δεν έχει Παραδοθεί</font> </b>}
+        </div>
+    </div>
+    <div class="col-md-1 Minedu-margin-bottom"> &nbsp; </div>
+    <div class="row">
+        <div class="col-md-2">
+            @Html.LabelFor(model => model.SNoModem, new { @class = " control-label" })
+        </div>
+        <div class="col-md-4">
+            @Html.DisplayFor(model => model.SNoModem, new { @class = " control-label" })
+        </div>
+    </div>
+    <div class="col-md-4">
+        @if (Model.OKModem)
+        {<b> Έχει Παραδοθεί</b> }
+        else
+        { <b> <font color="red"> Δεν έχει Παραδοθεί</font> </b>}
+    </div>
+    <div class="col-md-1 Minedu-margin-bottom"> &nbsp; </div>
+
+
+    <div class="col-md-4 Minedu-wrap ">
+        @Html.LabelFor(model => model.SNoUSB, new { @class = " control-label" })
+    </div>
+    <div class="col-md-3 ">
+        @Html.DisplayFor(model => model.SNoUSB, new { @class = " control-label" })
+    </div>
+    <div class="col-md-4 ">
+        @if (Model.OKUSB)
+        {<b> Έχει Παραδοθεί</b> }
+        else
+        { <b> <font color="red"> Δεν έχει Παραδοθεί</font> </b>}
+    </div>
+    <div class="col-md-1 Minedu-margin-bottom"> &nbsp; </div>
+
+</div>
+
+    <div class="col-md-offset-2 col-md-10 Minedu-margin-top">
+
+        <input type="button" class="btn btn-danger" value="Επεξεργασία" onclick="location.href='@Url.Action("RegistryEntry", "Home")'" />*@
+
+    </div>
+
+
+    }
+
+
+

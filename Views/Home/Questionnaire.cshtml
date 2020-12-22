@@ -1,0 +1,115 @@
+﻿@model Questionnaire2.Models.QuestionnaireModel
+@{
+    ViewData["Title"] = "Questionnaire";
+}
+
+<h1>Questionnaire</h1>
+
+
+@using (Html.BeginForm())
+{
+
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+
+    if (!Model.ErrorMessage.Trim().Equals(""))
+    {
+        <div class="alert alert-danger col-md-12">
+            @Html.DisplayFor(model => model.ErrorMessage)
+
+            <br />
+        </div>
+    }
+
+    <div class="form-group ">
+
+        @*
+
+            <div class="col-md-1 Minedu-margin-bottom"> &nbsp; </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        @Html.LabelFor(model => model.SchoolDescription, new { @class = " control-label" })
+                    </div>
+                    <div class="col-md-4">
+                        @Html.DropDownListFor(model => model.SchoolDescription, new SelectList(Questionnaire2.Helpers.InMemory.getSchoolDescriptions(), "Key", "Value"), new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-md-1 Minedu-margin-bottom"> &nbsp; </div>*@
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="Section1-tab" data-toggle="pill" href="#Section1" role="tab" aria-controls="Section1" aria-selected="true">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="Section2-tab" data-toggle="pill" href="#Section2" role="tab" aria-controls="Section2" aria-selected="false">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="Section3-tab" data-toggle="pill" href="#Section3" role="tab" aria-controls="Section3" aria-selected="false">Contact</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="Section1" role="tabpanel" aria-labelledby="Section1-tab">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        @Html.DisplayFor(model => model.Q1Label) ;
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        @foreach (KeyValuePair<int, string> descr in Model.Q1Options)
+                        {
+                            @Html.RadioButtonFor(model => model.Q1, descr.Key, Model.Q1.Equals(descr.Key) ? new { @checked = "checked" } : null) <label class="control-label">@descr.Value</label><br />
+                        }
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        @Html.DisplayFor(model => model.Q2Label) ;
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        @foreach (KeyValuePair<int, string> descr in Model.Q2Options)
+                        {
+                            @Html.RadioButtonFor(model => model.Q2, descr.Key, Model.Q2.Equals(descr.Key) ? new { @checked = "checked" } : null) <label class="control-label">@descr.Value</label><br />
+                        }
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="tab-pane fade" id="Section2" role="tabpanel" aria-labelledby="Section2-tab">
+                <partial name="_QuestionnaireTab2" />
+
+            </div>
+            <div class="tab-pane fade" id="Section3" role="tabpanel" aria-labelledby="Section3-tab">
+
+                <div class="row">
+                    <div class="col-md-2">
+                        @Html.DisplayFor(model => model.Q3Label) ;
+                    </div>
+
+                    <div class="col-md-10 Minedu-margin-bottom">
+                        <textarea rows="7" cols="1000" id="Comments">
+                </textarea>
+
+                    </div>
+
+                </div>
+                <div class="col-md-offset-2 col-md-10 Minedu-margin-top">
+                    <input type="submit" class="btn btn-danger" value="Καταχώρηση" />
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="col-md-1 Minedu-margin-bottom"> &nbsp; </div>
+
+
+
+    </div>
+}

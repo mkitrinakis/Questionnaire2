@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "Log In";
+
+}
+<h2>Σελίδα Login με το ΠΣΔ</h2>
+<h2> @ViewBag.Message</h2>
+
+
+@using (Html.BeginForm("LogIn", "Home", FormMethod.Post))
+{
+
+    @Html.AntiForgeryToken()
+
+<div class="form-group">
+    <div class="row">
+        <div class="col-md-2">
+            User Name
+        </div>
+        <div class="col-md-10">
+            <input type="text" class="form-control" name="loginName" id="loginName"  />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-primary " value="ΕΙΣΟΔΟΣ" />
+        </div>
+        </div> 
+    </div>
+
+    }
+    <br />
+
+
+
+
+
+
+
