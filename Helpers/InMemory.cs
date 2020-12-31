@@ -9,11 +9,11 @@ namespace Questionnaire2.Helpers
 {
     public static class InMemory
     {
-        public  static QuestionnaireModel  GetQuestionnaire()
+        public static QuestionnaireModel GetQuestionnaire()
         {
             QuestionnaireModel rs = new QuestionnaireModel();
-            rs.ErrorMessage = "Everything OK"; 
-            
+            rs.ErrorMessage = "Everything OK";
+
             //rs.History = "History";
             //rs.OKModem = false;
             //rs.OKPC = false;
@@ -26,8 +26,8 @@ namespace Questionnaire2.Helpers
             //rs.SNoPrinter = "SNOPronter";
             //rs.SNoUSB = "SNOUSB";
             //rs.UserCode = "User XXX Code";
-            
-            return rs; 
+
+            return rs;
         }
 
         public static Dictionary<int, string> getSchoolDescriptions()
@@ -41,10 +41,10 @@ namespace Questionnaire2.Helpers
                 { 4, "Scrambled School"},
                 { 5, "Hard Boiled Scool"}
             };
-            return rs; 
+            return rs;
         }
 
-        public static Dictionary<int,string> getYesNo()
+        public static Dictionary<int, string> getYesNo()
         {
             Dictionary<int, string> rs = new System.Collections.Generic.Dictionary<int, string>
             {
@@ -77,15 +77,58 @@ namespace Questionnaire2.Helpers
         public static Dictionary<int, string> getChoices(string[] options)
         {
             Dictionary<int, string> rs = new System.Collections.Generic.Dictionary<int, string> { };
-            int counter = 0; 
-foreach (string option in options)
+            int counter = 0;
+            foreach (string option in options)
             {
-                rs.Add(counter, option); 
+                rs.Add(counter, option);
             }
-            return rs; 
+            return rs;
+        }
+
+        public static Dictionary<int, string> getGoodScale()
+        {
+            Dictionary<int, string> rs = new System.Collections.Generic.Dictionary<int, string>
+            {
+                { 1, "Εξαιρετική"},
+                { 2, "Πολύ Καλή"},
+                { 3, "Μέτρια"},
+                { 4, "Αδιάφορη"},
+            };
+            return rs;
+        }
+
+        public static Dictionary<int, string> getQuantityScale()
+        {
+            Dictionary<int, string> rs = new System.Collections.Generic.Dictionary<int, string>
+            {
+                { 1, "Όχι, δεν υπήρχαν"},
+                { 2, "Λίγα"},
+                { 3, "Πολλά"},
+                { 4, "Πάρα πολλά"},
+            };
+            return rs;
         }
 
 
-        
+        public static Dictionary<int, string> getPlatforms()
+        {
+            Dictionary<int, string> rs = new System.Collections.Generic.Dictionary<int, string>
+            {
+                { 1,"E-class" }, {2,"E-me" }, {3,"Edmodo" },{4,"Google classroom" },{5,"Άλλη(Συμπληρώστε)" }
+
+            };
+            return rs;
+        }
+
+        public static Dictionary<int, string> getGrades()
+        {
+            Dictionary<int, string> rs = new System.Collections.Generic.Dictionary<int, string>
+            {
+                { 1,"Νηπιαγωγείο" }, {2,"Δημοτικό" }, {3,"Γυμνάσιο" },{4,"Γενικό Λύκειο" },{5,"Επαγγελματικό Λύκειο" }
+
+            };
+            return rs;
+        }
+
     }
 }

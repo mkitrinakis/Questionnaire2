@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Questionnaire2.Models;
 
 namespace Questionnaire2
 {
@@ -33,6 +34,11 @@ namespace Questionnaire2
                 options.Cookie.IsEssential = true;
             });
             // end of minedu configure session
+            // start of configure mySQL 
+            services.AddMvc();
+              services.Add(new ServiceDescriptor(typeof(MySQLContext), new MySQLContext(Configuration.GetValue<string>("ConnectionString")))) ;
+            // services.Add(new ServiceDescriptor(typeof(MySQLContext), new MySQLContext("MyConnString")));
+            // end of configure mySQL 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

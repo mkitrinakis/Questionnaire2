@@ -57,7 +57,9 @@ namespace Questionnaire2.Controllers
 
         public ActionResult Questionnaire()
         {
-            QuestionnaireModel questionnaire = InMemory.GetQuestionnaire(); 
+            MySQLContext mySQLContext = HttpContext.RequestServices.GetService(typeof(Questionnaire2.Models.MySQLContext)) as MySQLContext;
+            // QuestionnaireModel questionnaire = InMemory.GetQuestionnaire(); 
+            QuestionnaireModel questionnaire = mySQLContext.getAnswers(1, 1); 
             return View(questionnaire);
         }
 
@@ -65,15 +67,17 @@ namespace Questionnaire2.Controllers
         public ActionResult Questionnaire(QuestionnaireModel questionnaire)
         {
             string result = "";
-            if (questionnaire == null) questionnaire = InMemory.GetQuestionnaire();
-            questionnaire.ErrorMessage = "OK"; 
-            result = "Q1:" + (questionnaire.Q1 ?? "").ToString();
-            result += "Q2:" + (questionnaire.Q2 ?? "").ToString();
-            result += "Q3:" + (questionnaire.Q3 ?? "N/A").ToString();
-            result += "Q4:" + (questionnaire.Q4 ?? "").ToString();
-            result += "Q5:" + (questionnaire.Q5 ?? "").ToString();
-            result += "Q6:" + (questionnaire.Q6 ??"").ToString();
-
+            MySQLContext mySQLContext = HttpContext.RequestServices.GetService(typeof(Questionnaire2.Models.MySQLContext)) as MySQLContext;
+            //if (questionnaire == null) questionnaire = InMemory.GetQuestionnaire();
+            //questionnaire.ErrorMessage = "OK"; 
+            //result = "Q1:" + (questionnaire.Q1 ?? "").ToString();
+            //result += "Q2:" + (questionnaire.Q2 ?? "").ToString();
+            //result += "Q3:" + (questionnaire.Q3 ?? "N/A").ToString();
+            //result += "Q4:" + (questionnaire.Q4 ?? "").ToString();
+            //result += "Q5:" + (questionnaire.Q5 ?? "").ToString();
+            //result += "Q6:" + (questionnaire.Q6 ??"").ToString();
+            questionnaire.ErrorMessage = ""; 
+            if (!mySQLContext.postAnswers(1, 1, questionnaire )) { questionnaire.ErrorMessage += "... CHECK THE INPUT !";  }
             return View(questionnaire);
         }
 
