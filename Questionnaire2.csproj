@@ -6,11 +6,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="imgs\**" />
+    <Content Remove="imgs\**" />
+    <EmbeddedResource Remove="imgs\**" />
+    <None Remove="imgs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Data.SqlClient" Version="2.1.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
     <PackageReference Include="MySql.Data" Version="8.0.22" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\imgs\" />
   </ItemGroup>
 
 </Project>

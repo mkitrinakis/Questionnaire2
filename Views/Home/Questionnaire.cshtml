@@ -3,6 +3,10 @@
     ViewData["Title"] = "Questionnaire";
 }
 
+
+<script src="~/js/forms.js"></script>
+
+
 <h1>Questionnaire</h1>
 
 
@@ -14,14 +18,19 @@
     @Html.ValidationSummary("", new { @class = "text-danger" })
 
 
-    if (!Model.ErrorMessage.Trim().Equals(""))
-    {
-        <div class="alert alert-danger col-md-12">
-            @Html.DisplayFor(model => model.ErrorMessage)
+    if (!(Model.ErrorMessage ?? "").Trim().Equals(""))
+    { <div class="alert alert-danger col-md-12">
 
-            <br />
+            @Html.Raw(Model.ErrorMessage)
         </div>
     }
+    if (!(Model.InfoMessage ?? "").Trim().Equals(""))
+    { <div class="alert alert-info col-md-12">
+            @Html.DisplayFor(model => model.InfoMessage)
+        </div>
+    }
+
+    @Html.HiddenFor(model => model.UserName)
 
     <div class="form-group ">
 
@@ -37,79 +46,78 @@
                     </div>
                 </div>
                 <div class="col-md-1 Minedu-margin-bottom"> &nbsp; </div>*@
-        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active" id="Section1-tab" data-toggle="pill" href="#Section1" role="tab" aria-controls="Section1" aria-selected="true">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="Section2-tab" data-toggle="pill" href="#Section2" role="tab" aria-controls="Section2" aria-selected="false">Profile</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="Section3-tab" data-toggle="pill" href="#Section3" role="tab" aria-controls="Section3" aria-selected="false">Contact</a>
-            </li>
-        </ul>
-        <div class="tab-content" id="pills-tabContent">
-            <div class="tab-pane fade show active" id="Section1" role="tabpanel" aria-labelledby="Section1-tab">
 
-                <div class="row">
-                    <div class="col-md-6">
-                        @Html.DisplayFor(model => model.Q1Label) ;
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        @foreach (KeyValuePair<int, string> descr in Model.Q1Options)
-                        {
-                            @Html.RadioButtonFor(model => model.Q1, descr.Key, Model.Q1.Equals(descr.Key) ? new { @checked = "checked" } : null) <label class="control-label">@descr.Value</label><br />
-                        }
-
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        @Html.DisplayFor(model => model.Q2Label) ;
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        @foreach (KeyValuePair<int, string> descr in Model.Q2Options)
-                        {
-                            @Html.RadioButtonFor(model => model.Q2, descr.Key, Model.Q2.Equals(descr.Key) ? new { @checked = "checked" } : null) <label class="control-label">@descr.Value</label><br />
-                        }
-                    </div>
-                </div>
-
-
-            </div>
-            <div class="tab-pane fade" id="Section2" role="tabpanel" aria-labelledby="Section2-tab">
-                <partial name="_QuestionnaireTab2" />
-
-            </div>
-            <div class="tab-pane fade" id="Section3" role="tabpanel" aria-labelledby="Section3-tab">
-
-                <div class="row">
-                    <div class="col-md-6">
-                        @Html.DisplayFor(model => model.Q3Label) ;
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        @Html.TextAreaFor(model => model.Q3, new { @class = "textareaAnswer" })
-                    </div>
-                </div>
-
-
-                <div class="col-md-offset-2 col-md-10 Minedu-margin-top">
-                    <input type="submit" class="btn btn-danger" value="Καταχώρηση" />
-                </div>
-
-            </div>
+        <div align="right">
+            <input type="submit" value="Προσωρινη Αποθηκευση" class="btn" formaction="QSave" id="btnSave" />
         </div>
 
+
+
+        <ul class="nav nav-tabs mb-3" id="q-tab">
+            <li class="nav-item">
+                <a class="nav-link active" id="Section1-tab" data-toggle="tab" href="#Section1" role="tab" aria-controls="Section1" aria-selected="true">Προσωπικά Στοιχεία</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="Section2-tab" data-toggle="tab" href="#Section2" role="tab" aria-controls="Section2" aria-selected="false">Ασύγχρονη Τηλεκπαίδευση</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="Section3-tab" data-toggle="tab" href="#Section3" role="tab" aria-controls="Section3" aria-selected="false">Σύγχρονη Τηλεκπαίδευση</a>
+            </li>
+            <!--      <li class="nav-item">
+                <a class="nav-link" id="Section4-tab" data-toggle="pill" href="#Section4" role="tab" aria-controls="Section4" aria-selected="false">Συνολική Εικόνα (Μάρτιος-Μάϊος)</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="Section5-tab" data-toggle="pill" href="#Section5" role="tab" aria-controls="Section5" aria-selected="false">Σχολική Χρονιά 2020-2021</a>
+            </li>-->
+        </ul>
+
+
+
+        <hr />
+        <fieldset id="allFields">
+            <div class="tab-content" id="q-tabContent">
+
+                <div class="tab-pane fade show active" id="Section1" role="tabpanel" aria-labelledby="Section1-tab">
+
+                    <partial name="_QuestionnaireTab1" />
+
+                </div>
+                <div class="tab-pane fade" id="Section2" role="tabpanel" aria-labelledby="Section2-tab">
+                    <partial name="_QuestionnaireTab2" />
+
+                </div>
+
+                <div class="tab-pane fade" id="Section3" role="tabpanel" aria-labelledby="Section3-tab">
+
+
+                    <partial name="_QuestionnaireTab3" />
+
+
+
+                </div>
+
+
+            </div>  <!-- pills-tabContent-->
+        </fieldset>
 
         <div class="col-md-1 Minedu-margin-bottom"> &nbsp; </div>
 
 
 
     </div>
+
+
+}
+
+
+<script>
+    validateHides();
+</script>
+
+@if (Model.UserStatus.Equals(Questionnaire2.Helpers.UserHelper.UserStatus.Submitted))
+{
+<script>
+    disableAllFields();
+    hideAllButtons(); 
+</script>
 }

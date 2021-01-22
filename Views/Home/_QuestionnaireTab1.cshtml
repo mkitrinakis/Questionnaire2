@@ -1,0 +1,111 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model Questionnaire2.Models.QuestionnaireModel
+
+    <div class="row">
+        <div class="col-md-12">
+            
+        </div>
+    </div>
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.DisplayFor(model => model.Q1Label)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    @foreach (KeyValuePair<int, string> descr in Model.Q1Options)
+                    {
+                        @Html.RadioButtonFor(model => model.Q1, descr.Key, Model.Q1.Equals(descr.Key) ? new { @checked = "checked" } : null) <label class="control-label">@descr.Value</label><br />
+                    }
+
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.DisplayFor(model => model.Q2Label)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    @foreach (KeyValuePair<int, string> descr in Model.Q2Options)
+                    {
+                        @Html.RadioButtonFor(model => model.Q2, descr.Key, Model.Q2.Equals(descr.Key) ? new { @checked = "checked" } : null) <label class="control-label">@descr.Value</label><br />
+                    }
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.DisplayFor(model => model.Q3Label)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    @foreach (KeyValuePair<int, string> descr in Model.Q3Options)
+                    {
+                        @Html.RadioButtonFor(model => model.Q3, descr.Key, Model.Q3.Equals(descr.Key) ? new { @checked = "checked" } : null) <label class="control-label">@descr.Value</label><br />
+                    }
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.DisplayFor(model => model.Q4Label)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    @foreach (KeyValuePair<int, string> descr in Model.Q4Options)
+                    {
+                        @Html.RadioButtonFor(model => model.Q4, descr.Key, Model.Q4.Equals(descr.Key) ? new { @checked = "checked" } : null) <label class="control-label">@descr.Value</label><br />
+                    }
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.DisplayFor(model => model.Q5Label)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    @foreach (KeyValuePair<int, string> descr in Model.Q5Options)
+                    {
+                        @Html.RadioButtonFor(model => model.Q5, descr.Key, Model.Q5.Equals(descr.Key) ? new { @checked = "checked" } : null) <label class="control-label">@descr.Value</label><br />
+                    }
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.DisplayFor(model => model.Q6Label)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    @foreach (KeyValuePair<int, string> descr in Model.Q6Options)
+                    {
+                        @Html.RadioButtonFor(model => model.Q6, descr.Key, Model.Q6.Equals(descr.Key) ? new { @checked = "checked" } : null) <label class="control-label">@descr.Value</label><br />
+                    }
+
+                </div>
+            </div>
+            <hr />
+
+
+            <div class="row">
+                <div class="col-md-8">
+                    &nbsp
+                </div>
+                <div class="col-md-4">
+                    <input type="submit" class="btn btn-secondary" value="Επόμενο >>" onclick="javascript:goto2(); return (false);" />
+                </div>
+            </div>
+
+

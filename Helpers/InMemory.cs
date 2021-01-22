@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Questionnaire2.Models;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace Questionnaire2.Helpers
 {
@@ -80,6 +81,7 @@ namespace Questionnaire2.Helpers
             int counter = 0;
             foreach (string option in options)
             {
+                counter++;
                 rs.Add(counter, option);
             }
             return rs;
@@ -128,6 +130,18 @@ namespace Questionnaire2.Helpers
 
             };
             return rs;
+        }
+
+        public struct UserToken
+        {
+            public bool isAuthenticated; 
+            public string userName; 
+        }
+
+        public  static UserToken getUserToken(HttpContext httpContext)
+        {
+            string _userName = (httpContext.Session.GetString("LoginName") ?? "").ToString().Trim();
+            return new UserToken { isAuthenticated = _userName.Equals("") ? false : true, userName = _userName }; 
         }
 
     }

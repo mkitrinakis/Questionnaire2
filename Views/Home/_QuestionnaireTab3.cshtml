@@ -1,0 +1,86 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model Questionnaire2.Models.QuestionnaireModel
+
+<div class="row">
+    <div class="col-md-6">
+        @Html.DisplayFor(model => model.Q19Label)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        @foreach (KeyValuePair<int, string> descr in Model.Q1Options)
+        {
+        @Html.RadioButtonFor(model => model.Q19, descr.Key, Model.Q19.Equals(descr.Key) ? new { @checked = "checked" } : null)  <label class="control-label">@descr.Value</label><br />
+        }
+
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        @Html.DisplayFor(model => model.Q20Label)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        @foreach (KeyValuePair<int, string> descr in Model.Q20Options)
+        {
+        @Html.RadioButtonFor(model => model.Q20, descr.Key, Model.Q20.Equals(descr.Key) ? new { @checked = "checked" } : null)  <label class="control-label">@descr.Value</label><br />
+        }
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        @Html.DisplayFor(model => model.Q21Label)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        @foreach (KeyValuePair<int, string> descr in Model.Q21Options)
+        {
+        @Html.RadioButtonFor(model => model.Q21, descr.Key, Model.Q21.Equals(descr.Key) ? new { @checked = "checked" } : null)  <label class="control-label">@descr.Value</label><br />
+        }
+    </div>
+</div>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        @Html.DisplayFor(model => model.Q22Label)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        @foreach (KeyValuePair<int, string> descr in Model.Q22Options)
+        {
+        @Html.RadioButtonFor(model => model.Q22, descr.Key, Model.Q22.Equals(descr.Key) ? new { @checked = "checked" } : null)  <label class="control-label">@descr.Value</label><br />
+        }
+    </div>
+</div>
+<hr />
+
+
+
+
+<div class="row">
+    <div class="col-md-4">
+        <input type="submit" class="btn btn-secondary"  value="<< Προηγούμενο" onclick="javascript: goto2(); return false;" />
+    </div>
+    <div class="col-md-8">
+        &nbsp
+    </div>
+</div>
+    <hr/> 
+    <div align="right">
+
+
+        <input type="submit" class="btn btn-danger" value="Υποβολή" id="btnSubmit" formaction="QSubmit" />
+    </div>
+
+
+

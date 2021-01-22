@@ -1,12 +1,27 @@
-﻿@{
+﻿@using Questionnaire2.Helpers ;  
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
     <div class="text-center">
-        <h1 class="display-4">Welcome</h1> 
-        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+        <h3>Ερωτηματολόγιο για την Τηλεεκπαίδευση</h3>
+
         <p>@ViewBag.Login </p>
-        <p>  @Html.ActionLink("Login", "Login", "Home")   </p>
-        <p>  @Html.ActionLink("Ερωτηματολόγιο (Edit)", "Questionnaire", "Home")   </p>
-        <p>  @Html.ActionLink("Ερωτηματολόγιο (Read)", "QuestionnaireRead", "Home")   </p>
+        <p>  @Html.ActionLink("Είσοδος στο σύστημα (με τα στοιχεία του ΠΣΔ)", "Login", "Home")   </p>
+
+        @if (ViewBag.UserStatus.Equals(UserHelper.UserStatus.Draft))
+        {
+            <p>  @Html.ActionLink("Συνεχίστε την Συμπλήρωση του Ερωτηματολογίου (Edit)", "Questionnaire", "Home")   </p>
+        }
+        @if (ViewBag.UserStatus.Equals(UserHelper.UserStatus.New))
+        {
+            <p>  @Html.ActionLink("Συμπληρώστε το Ερωτηματολόγιο", "Questionnaire", "Home")   </p>
+        }
+        @if (ViewBag.UserStatus.Equals(UserHelper.UserStatus.Submitted))
+        {
+            <p>  Έχετε ήδη υποβάλει το Ερωτηματολόγιο </p>
+            <p>  @Html.ActionLink("Προβολή του Ερωτηματολογίου", "Questionnaire", "Home")   </p>
+        }
+
     </div>

@@ -36,7 +36,7 @@ namespace Questionnaire2
             // end of minedu configure session
             // start of configure mySQL 
             services.AddMvc();
-              services.Add(new ServiceDescriptor(typeof(MySQLContext), new MySQLContext(Configuration.GetValue<string>("ConnectionString")))) ;
+              services.Add(new ServiceDescriptor(typeof(MySQLContext), new MySQLContext(Configuration.GetValue<string>("ConnectionString"), Configuration.GetValue<int>("QuestionsMax")))) ;
             // services.Add(new ServiceDescriptor(typeof(MySQLContext), new MySQLContext("MyConnString")));
             // end of configure mySQL 
         }
@@ -58,7 +58,8 @@ namespace Questionnaire2
 
             app.UseAuthorization();
 
-            app.UseSession();  //  minedu configure session . Must be after 'Use Routing', before 'Use EndPoints' 
+              app.UseSession();  //  minedu configure session . Must be after 'Use Routing', before 'Use EndPoints' 
+          
 
             app.UseEndpoints(endpoints =>
             {
