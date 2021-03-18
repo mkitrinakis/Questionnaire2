@@ -1,0 +1,127 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model Questionnaire2.Models.QuestionnaireModelA
+
+
+
+@foreach (Questionnaire2.Models.QuestionnaireModelA.TableQuestion tableQuestion in Model.TableQuestions)
+{
+<div class="row">
+    <div class="col-md-12">
+
+    </div>
+</div>
+<table class="qTable">
+    <tr>
+        <td width="15%">&nbsp&nbsp&nbsp </td>
+        <td width="15%">&nbsp&nbsp&nbsp </td>
+
+        @foreach (KeyValuePair<int, string> descr in ((Dictionary<int, string>) Model.GetType().GetProperty(tableQuestion.options).GetValue(Model)))
+        {
+            <td width="10%">
+                <label class="control-label">@descr.Value</label>
+            </td>
+
+        }
+    </tr>
+    @foreach (Questionnaire2.Models.QuestionnaireModelA.TableQuestionRow row in tableQuestion.rows)
+    {
+        string label = ((string)Model.GetType().GetProperty(row.label).GetValue(Model));
+        KeyValuePair<int,string> options= ((KeyValuePair<int, string>)Model.GetType().GetProperty(row.options).GetValue(Model));
+<tr>
+    <td>@Html.DisplayFor(model => label.Split("#", StringSplitOptions.RemoveEmptyEntries)[0])</td>
+    <td>@Html.DisplayFor(model => label.Split("#", StringSplitOptions.RemoveEmptyEntries)[1])</td>
+ 
+    @foreach (KeyValuePair<int, string> descr in ((Dictionary<int, string>)Model.GetType().GetProperty(row.options).GetValue(Model)))
+    {
+        <td>
+            @Html.RadioButtonFor(model => model.GetType().GetProperty(row.options), descr.Key, Model.Q1101.Equals(descr.Key) ? new { @checked = "checked", onchange = "hide('Q1101OptionsOther');" } : new { @checked = "", onchange = "hide('Q1101OptionsOther');" })
+        </td>
+    }
+    <td>
+        @Html.RadioButtonFor(model => model.Q1101, 5, Model.Q1101.Equals(5) ? new { @checked = "checked", onchange = "show('Q1101OptionsOther');" } : new { @checked = "", onchange = "show('Q1101OptionsOther');" })
+    </td>
+</tr>
+        
+    }
+   
+</table>
+<hr />
+}
+
+
+
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        @Html.DisplayFor(model => model.Q3Label)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        @foreach (KeyValuePair<int, string> descr in Model.Q3Options)
+        {
+            @Html.RadioButtonFor(model => model.Q3, descr.Key, Model.Q3.Equals(descr.Key) ? new { @checked = "checked" } : null) <label class="control-label">@descr.Value</label><br />
+        }
+    </div>
+</div>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        @Html.DisplayFor(model => model.Q4Label)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        @foreach (KeyValuePair<int, string> descr in Model.Q4Options)
+        {
+            @Html.RadioButtonFor(model => model.Q4, descr.Key, Model.Q4.Equals(descr.Key) ? new { @checked = "checked" } : null) <label class="control-label">@descr.Value</label><br />
+        }
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        @Html.DisplayFor(model => model.Q5Label)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        @foreach (KeyValuePair<int, string> descr in Model.Q5Options)
+        {
+            @Html.RadioButtonFor(model => model.Q5, descr.Key, Model.Q5.Equals(descr.Key) ? new { @checked = "checked" } : null) <label class="control-label">@descr.Value</label><br />
+        }
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        @Html.DisplayFor(model => model.Q6Label)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        @foreach (KeyValuePair<int, string> descr in Model.Q6Options)
+        {
+            @Html.RadioButtonFor(model => model.Q6, descr.Key, Model.Q6.Equals(descr.Key) ? new { @checked = "checked" } : null) <label class="control-label">@descr.Value</label><br />
+        }
+
+    </div>
+</div>
+<hr />
+
+
+<div class="row">
+    <div class="col-md-8">
+        &nbsp
+    </div>
+    <div class="col-md-4">
+        <input type="submit" class="btn btn-secondary" value="Επόμενο >>" onclick="javascript:goto2(); return (false);" />
+    </div>
+</div>
+
+

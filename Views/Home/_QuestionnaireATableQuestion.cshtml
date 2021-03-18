@@ -1,0 +1,50 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model Questionnaire2.Models.TableQuestion
+
+<div class="row">
+    <div class="col-md-12">
+        XXXX  @Html.TextBoxFor(model => model.val)    YYYY
+    </div>
+</div>
+<table class="qTable">
+
+    
+
+    <tr>
+        <td width="15%">@Html.DisplayFor(model => model.label) </td>
+        <td width="15%"></td>
+
+
+
+        @foreach (KeyValuePair<int, string> descr in Model.options)
+        {
+            <td width="10%">
+                <label class="control-label">@descr.Value</label>
+            </td>
+
+        }
+    </tr>
+    @for (int i=0; i<Model.rows.Count; i++) { 
+    <tr>
+        <td>@Html.DisplayFor(model => model.rows[i].label.Split("#", StringSplitOptions.RemoveEmptyEntries)[0])</td>
+        <td>@Html.DisplayFor(model => model.rows[i].label.Split("#", StringSplitOptions.RemoveEmptyEntries)[1])</td>
+        @foreach (KeyValuePair<int, string> option in Model.rows[i].options)
+        {
+            <td>
+                @Html.RadioButtonFor(model => model.rows[i].val, option.Key, (Model.rows[i].val ?? "").Equals(option.Key) ? new { @checked = "checked", onchange = "hide('Q1101OptionsOther');" } : new { @checked = "", onchange = "hide('Q1101OptionsOther');" })
+            </td>
+        }
+
+    </tr>
+
+        }
+
+
+       
+</table>
+<hr />
+
+

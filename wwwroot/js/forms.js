@@ -42,7 +42,7 @@ function getOptionsValue(fieldName) {
     return "";
 }
 
-function validateHides() {
+function validateHidesQA() {
     var q7 = getOptionsValue("Q7");
     if (q7 == "1") { enable("Q8"); } else { disable("Q8"); }
 
@@ -53,6 +53,51 @@ function validateHides() {
     if (q9 == "5") { show("Q9OptionsOther"); } else { hide("Q9OptionsOther"); }
 }
 
+
+
+function validateHidesTableOther() {
+    for (var i = 0; i <= 8 ; i++)
+    {
+        var name = "Q101.rows[" + i + "].val"; 
+        var val = getOptionsValue(name); 
+        if (val == "5") { show("Q101_rows_" + i + "__detail"); } else { hide("Q101_rows_" + i + "__detail"); }
+    }
+    for (var i = 0; i <= 3; i++) {
+        var name = "Q102.rows[" + i + "].val";
+        var val = getOptionsValue(name);
+        if (val == "5") { show("Q102_rows_" + i + "__detail"); } else { hide("Q102_rows_" + i + "__detail"); }
+    }
+    for (var i = 0; i <= 5; i++) {
+        var name = "Q103.rows[" + i + "].val";
+        var val = getOptionsValue(name);
+        if (val == "5") { show("Q103_rows_" + i + "__detail"); } else { hide("Q103_rows_" + i + "__detail"); }
+    }
+    for (var i = 0; i <= 7; i++) {
+        var name = "Q104.rows[" + i + "].val";
+        var val = getOptionsValue(name);
+        if (val == "5") { show("Q104_rows_" + i + "__detail"); } else { hide("Q104_rows_" + i + "__detail"); }
+    }
+    for (var i = 0; i <= 5; i++) {
+        var name = "Q105.rows[" + i + "].val";
+        var val = getOptionsValue(name);
+        if (val == "5") { show("Q105_rows_" + i + "__detail"); } else { hide("Q105_rows_" + i + "__detail"); }
+    }
+    for (var i = 0; i <= 6; i++) {
+        var name = "Q106.rows[" + i + "].val";
+        var val = getOptionsValue(name);
+        if (val == "5") { show("Q106_rows_" + i + "__detail"); } else { hide("Q106_rows_" + i + "__detail"); }
+    }
+    for (var i = 0; i <= 4; i++) {
+        var name = "Q107.rows[" + i + "].val";
+        var val = getOptionsValue(name);
+        if (val == "5") { show("Q107_rows_" + i + "__detail"); } else { hide("Q107_rows_" + i + "__detail"); }
+    }
+    for (var i = 0; i <= 7; i++) {
+        var name = "Q108.rows[" + i + "].val";
+        var val = getOptionsValue(name);
+        if (val == "5") { show("Q108_rows_" + i + "__detail"); } else { hide("Q108_rows_" + i + "__detail"); }
+    }
+}
 
 
 // read mode functions
@@ -87,4 +132,22 @@ function goto3() {
  
     $('.nav-tabs a[href="#Section3"]').tab('show');
  
+}
+
+function goto4() {
+
+    $('.nav-tabs a[href="#Section4"]').tab('show');
+
+}
+
+function goto5() {
+
+    $('.nav-tabs a[href="#Section5"]').tab('show');
+
+}
+
+function goto6() {
+
+    $('.nav-tabs a[href="#Section6"]').tab('show');
+
 }

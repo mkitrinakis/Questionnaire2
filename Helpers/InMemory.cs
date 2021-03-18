@@ -10,9 +10,9 @@ namespace Questionnaire2.Helpers
 {
     public static class InMemory
     {
-        public static QuestionnaireModel GetQuestionnaire()
+        public static QuestionnaireModelB GetQuestionnaire()
         {
-            QuestionnaireModel rs = new QuestionnaireModel();
+            QuestionnaireModelB rs = new QuestionnaireModelB();
             rs.ErrorMessage = "Everything OK";
 
             //rs.History = "History";
@@ -87,7 +87,7 @@ namespace Questionnaire2.Helpers
             return rs;
         }
 
-        public static Dictionary<int, string> getGoodScale()
+        public static Dictionary<int, string> getQualityScale()
         {
             Dictionary<int, string> rs = new System.Collections.Generic.Dictionary<int, string>
             {
@@ -99,7 +99,20 @@ namespace Questionnaire2.Helpers
             return rs;
         }
 
-        public static Dictionary<int, string> getQuantityScale()
+        public static Dictionary<int, string> getQuantityScale2()
+        {
+            Dictionary<int, string> rs = new System.Collections.Generic.Dictionary<int, string>
+            {
+                { 1, "Πάρα πολύ"},
+                { 2, "Πολύ"},
+                { 3, "Μέτρια"},
+                { 4, "Λίγο"},
+                { 5, "Καθόλου/Υπήρχε η δυνατότητα αλλά δεν κατάφερα να την χρησιμοποιήσω λόγω τεχνικών προβλημάτων"},
+            };
+            return rs;
+        }
+
+        public static Dictionary<int, string> getProblemsScale()
         {
             Dictionary<int, string> rs = new System.Collections.Generic.Dictionary<int, string>
             {
@@ -111,13 +124,35 @@ namespace Questionnaire2.Helpers
             return rs;
         }
 
-
-        public static Dictionary<int, string> getPlatforms()
+        public static Dictionary<int, string> getEduTypes()
         {
             Dictionary<int, string> rs = new System.Collections.Generic.Dictionary<int, string>
             {
-                { 1,"E-class" }, {2,"E-me" }, {3,"Edmodo" },{4,"Google classroom" },{5,"Άλλη(Συμπληρώστε)" }
+                { 1, "ασύγχρονη τηλεκπαίδευση"},
+                { 2, "σύγχρονη & ασύγχρονη"},
+                { 3, "δεν υπήρχε τηλεκπαίδευση"},
+                { 4, "δεν γνωρίζω"},
+                { 5, "Άλλο" }
+                };
+            return rs;
+        }
 
+
+        public static Dictionary<int, string> getPlatformsAsync()
+        {
+            Dictionary<int, string> rs = new System.Collections.Generic.Dictionary<int, string>
+            {
+                { 1,"E-class" }, {2,"E-me" }, {3, "Moodle" },  {4,"Edmodo" },{5,"Google classroom" },{6,"Άλλη(Συμπληρώστε)" }
+
+            };
+            return rs;
+        }
+
+        public static Dictionary<int, string> getPlatformsSync()
+        {
+            Dictionary<int, string> rs = new System.Collections.Generic.Dictionary<int, string>
+            {
+                { 1,"Webex" }, {2,"Google Meet" }, {3, "Skype" },  {4,"Zoom" },{5,"Άλλη(Συμπληρώστε)" }
             };
             return rs;
         }
@@ -132,6 +167,16 @@ namespace Questionnaire2.Helpers
             return rs;
         }
 
+        public static Dictionary<int, string> getParticipantRates()
+        {
+            Dictionary<int, string> rs = new System.Collections.Generic.Dictionary<int, string>
+            {
+                { 1,"80-100% των εκπαιδευομένων" }, {2,"60-79% των εκπαιδευομένων" }, {3, "40-59% των εκπαιδευομένων" },  {4,"<40% των εκπαιδευομένων" }
+
+            };
+            return rs;
+        }
+
         public struct UserToken
         {
             public bool isAuthenticated; 
@@ -140,8 +185,41 @@ namespace Questionnaire2.Helpers
 
         public  static UserToken getUserToken(HttpContext httpContext)
         {
+            return new UserToken() { isAuthenticated = true, userName = "username1" }; 
             string _userName = (httpContext.Session.GetString("LoginName") ?? "").ToString().Trim();
             return new UserToken { isAuthenticated = _userName.Equals("") ? false : true, userName = _userName }; 
+        }
+
+        public static int getAuthFailures(HttpContext httpContext)
+        {
+            try
+            {
+                int? temp = (httpContext.Session.GetInt32("AuthFailures")); 
+                if (temp == null)
+                {
+                    return 0; 
+                }
+                else { return (int)temp; }
+            }
+            catch  { return 0; }
+        }
+
+        public static void increaseAuthFailures(HttpContext httpContext)
+        {
+            int tmp = getAuthFailures(httpContext);
+            tmp++;
+            httpContext.Session.SetInt32("AuthFailures", tmp); 
+        }
+
+        public static void resetAuthFailures(HttpContext httpContext)
+        {
+            
+            httpContext.Session.SetInt32("AuthFailures", 0);
+        }
+
+        public static bool exceededAuthFailures(HttpContext httpContext)
+        {
+            return getAuthFailures(httpContext) >= 3; 
         }
 
     }

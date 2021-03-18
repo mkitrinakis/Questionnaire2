@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Ερωτηματολόγιο Τηλε-Εκπαίδευσης</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/site.css" />  
 </head>
 <body>
     <header>
@@ -18,44 +18,42 @@
     -->
 
 
-        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #0094ff;">
-            <div class="d-flex flex-grow-1">
-                <a class="navbar-brand" href="/Home/Index">
+       
+
+
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+            <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+                <a class="navbar-brand" href="/Home/IndexA">
                     <img src="~/imgs/mainlogo.jpg" alt="Minedu logo" />
                 </a>
-
             </div>
-            <a class="navbar-brand abs" href="#">Navbar 1</a>
-            <div class="collapse navbar-collapse flex-grow-1 text-center" id="myNavbarCenter">
-                <ul class="navbar-nav ml-auto flex-nowrap">
-                    Ερωτηματολόγιο Τηλε-Εκπαίδευσης
-                </ul>
+            <div class="mx-auto order-0">
+                <a class="navbar-brand mx-auto" href="/Home/IndexA">Ερωτηματολόγιο Αξιολόγησης Έργαλείων Απομακρυσμένης Εκπαίδευσης</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
             </div>
-
-            <div class="collapse navbar-collapse flex-grow-1 text-right" id="myNavbarRight">
-                <ul class="navbar-nav ml-auto flex-nowrap">
+            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                <ul class="navbar-nav ml-auto">
                     @{
                         var loginName = Context.Session.GetString("LoginName");
                         if (loginName == null || loginName == "")
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Σύνδεση  &nbsp&nbsp&nbsp <span class="glyphicon glyphicon-log-in"></span></a>
+                            <li class="nav-link">
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Login">Σύνδεση  &nbsp&nbsp&nbsp <span class="glyphicon glyphicon-log-in"></span></a>
                             </li>
                         }
                         else
                         {
-                            <li class="nav-item">
+                            <li class="nav-link">
                                 Είστε συνδεδεμένος ως <b> @loginName </b>
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">&nbsp&nbsp&nbsp <span class="glyphicon glyphicon-log-in"></span> Αποσύνδεση</a>
+                                <a class="nav-link " asp-area="" asp-controller="Home" asp-action="Login">&nbsp&nbsp&nbsp <span class="glyphicon glyphicon-log-in"></span> Αποσύνδεση</a>
                             </li>
                         }
                     }
-
-
-                </ul>
+                    </ul> 
             </div>
         </nav>
-
     </header>
 
     <div class="container">
@@ -64,9 +62,12 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - Ερωτηματολόγιο Ικανοποίησης Εργαλείων Τηλε-Εκπαίδευσης<a asp-area="" asp-controller="Home" asp-action="Privacy">Πληροφορίες</a>
+    <footer class="page-footer border-top footer text-muted footer">
+        <div class="text-center">
+            &copy; 2021 - Διεύθυνση Εκπαιδευτικής Τεχνολογίας
+            <!-- <div class="text-right">
+        <a asp-area="" asp-controller="Home" asp-action="Privacy">  Πληροφορίες</a>
+    </div> -->
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

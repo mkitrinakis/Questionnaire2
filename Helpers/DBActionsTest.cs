@@ -25,11 +25,11 @@ namespace Questionnaire2.Helpers
 
         string connectionError = "";
 
-        public List<QuestionnaireModel> GetRegistryEntries(string userName, int id)
+        public List<QuestionnaireModelA> GetRegistryEntries(string userName, int id)
         {
-            string nullMsg = "Δεν υπάρχει εγγραφή";
+            
 
-            List<QuestionnaireModel> m = new List<QuestionnaireModel>();
+            List<QuestionnaireModelA> m = new List<QuestionnaireModelA>();
             Log.write("SQLIntegratedSecurity:" + _appSettings.SQLIntegratedSecurity);
             try
             {
@@ -42,7 +42,7 @@ namespace Questionnaire2.Helpers
                         {
 
 
-                            string rs = "";
+                            
                             // SqlCommand cmd = new SqlCommand("dal.STSCenter");
                             
                                 SqlCommand cmd = new SqlCommand("SELECT * FROM inventory.Equipment", con);
@@ -57,13 +57,11 @@ namespace Questionnaire2.Helpers
                                 int counter = 0;
                                 while (rdr.Read())
                                 {
-                                    QuestionnaireModel reg = new QuestionnaireModel();
+                                    QuestionnaireModelA reg = new QuestionnaireModelA();
                                     counter++;
 
-                                    if (rdr["Q1"] != null && !(rdr["Q1"] == DBNull.Value))
-                                    { reg.Q1 = (string)rdr["Q1"]; }
-                                    if (rdr["Q2"] != null && !(rdr["Q2"] == DBNull.Value))
-                                    { reg.Q2 = (string)rdr["Q2"]; }
+                                   
+                                   
                                     if (rdr["Q3"] != null && !(rdr["Q3"] == DBNull.Value))
                                     { reg.Q3 = (string)rdr["Q3"]; }
                                     if (rdr["Q4"] != null && !(rdr["Q4"] == DBNull.Value))
@@ -84,7 +82,7 @@ namespace Questionnaire2.Helpers
                         {
                             //   errorMessage = "ERROR: ΔΕΝ ΜΠΟΡΕΣΕ ΝΑ ΒΡΕΘΕΙ Ο ΕΞΟΠΛΙΣΜΟΣ ΓΙΑ ΤΟ ΣΧΟΛΕΙΟ ΜΕ ΚΩΔΙΚΟ: " + schoolCode + "-->" + e.Message + "--> " + e.StackTrace;
                             Log.write(e.Message);
-                            QuestionnaireModel errorModel = new QuestionnaireModel() { ErrorMessage = e.Message };
+                            QuestionnaireModelA errorModel = new QuestionnaireModelA() { ErrorMessage = e.Message };
                             m.Add(errorModel);
                             //     m.ErrorMessage = errorMessage;
                             return m;
@@ -106,10 +104,10 @@ namespace Questionnaire2.Helpers
 
 
 
-        public List<QuestionnaireModel> getError(string msg)
+        public List<QuestionnaireModelA> getError(string msg)
         {
-            QuestionnaireModel reg = new QuestionnaireModel { ErrorMessage = msg };
-            List<QuestionnaireModel> l = new List<QuestionnaireModel>();
+            QuestionnaireModelA reg = new QuestionnaireModelA { ErrorMessage = msg };
+            List<QuestionnaireModelA> l = new List<QuestionnaireModelA>();
             l.Add(reg);
             return l;
         }
@@ -119,7 +117,7 @@ namespace Questionnaire2.Helpers
 
 
 
-        public string InsertRecord(QuestionnaireModel m, int id)
+        public string InsertRecord(QuestionnaireModelA m, int id)
         {
             try
             {
@@ -144,8 +142,8 @@ namespace Questionnaire2.Helpers
                         SqlParameter Q7 = new SqlParameter("@Q7", SqlDbType.VarChar);
 
                         ID.Value = id;
-                        Q1.Value = m.Q1;
-                        Q2.Value = m.Q2;
+                        
+                    
                         Q3.Value = m.Q3;
                         Q4.Value = m.Q4;
                         Q5.Value = m.Q5;
@@ -258,16 +256,16 @@ namespace Questionnaire2.Helpers
         //}
 
 
-        private string SetRegistryEntryUpdate(SqlConnection con, Models.QuestionnaireModel m, int id)
+        private string SetRegistryEntryUpdate(SqlConnection con, Models.QuestionnaireModelA m, int id)
         {
-            string? Q1  = m.Q1;
-            string? Q2 = m.Q2;
+            
+           
             string? Q3 = m.Q3;
             string? Q4 = m.Q4;
             string? Q5 = m.Q5;
             string? Q6 = m.Q6;
             string? Q7 = m.Q7;
-            string updateCommand = "Update [Questionnaire].[Records] set Q1 = " + Q1 + ", Q3= '" + Q3 + "where Id = " + id;
+            string updateCommand = "Update [Questionnaire].[Records] set Q3= '" + Q3 + "where Id = " + id;
             SqlCommand cmd = new SqlCommand(updateCommand, con);
             Log.write(updateCommand);
             cmd.ExecuteNonQuery();

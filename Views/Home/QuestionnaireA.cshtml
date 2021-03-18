@@ -1,4 +1,4 @@
-﻿@model Questionnaire2.Models.QuestionnaireModel
+﻿@model Questionnaire2.Models.QuestionnaireModelA
 @{
     ViewData["Title"] = "Questionnaire";
 }
@@ -48,27 +48,31 @@
                 <div class="col-md-1 Minedu-margin-bottom"> &nbsp; </div>*@
 
         <div align="right">
-            <input type="submit" value="Προσωρινη Αποθηκευση" class="btn" formaction="QSave" id="btnSave" />
+            <input type="submit" value="Προσωρινη Αποθηκευση" class="btn" formaction="QSave"  id="btnSave" />
         </div>
 
 
 
         <ul class="nav nav-tabs mb-3" id="q-tab">
             <li class="nav-item">
-                <a class="nav-link active" id="Section1-tab" data-toggle="tab" href="#Section1" role="tab" aria-controls="Section1" aria-selected="true">Προσωπικά Στοιχεία</a>
+                <a class="nav-link active" id="Section1-tab" data-toggle="tab" href="#Section1" role="tab" aria-controls="Section1" aria-selected="true">Ανά Μάθημα (Α)</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="Section2-tab" data-toggle="tab" href="#Section2" role="tab" aria-controls="Section2" aria-selected="false">Ασύγχρονη Τηλεκπαίδευση</a>
+                <a class="nav-link " id="Section2-tab" data-toggle="tab" href="#Section2" role="tab" aria-controls="Section2" aria-selected="true">Ανά Μάθημα (Β)</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="Section3-tab" data-toggle="tab" href="#Section3" role="tab" aria-controls="Section3" aria-selected="false">Σύγχρονη Τηλεκπαίδευση</a>
-            </li>
-            <!--      <li class="nav-item">
-                <a class="nav-link" id="Section4-tab" data-toggle="pill" href="#Section4" role="tab" aria-controls="Section4" aria-selected="false">Συνολική Εικόνα (Μάρτιος-Μάϊος)</a>
+                <a class="nav-link " id="Section3-tab" data-toggle="tab" href="#Section3" role="tab" aria-controls="Section3" aria-selected="true">Ανά Μάθημα (Γ)</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="Section5-tab" data-toggle="pill" href="#Section5" role="tab" aria-controls="Section5" aria-selected="false">Σχολική Χρονιά 2020-2021</a>
-            </li>-->
+                <a class="nav-link" id="Section4-tab" data-toggle="tab" href="#Section4" role="tab" aria-controls="Section4" aria-selected="false">Ασύγχρονη Τηλεκπαίδευση</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="Section5-tab" data-toggle="tab" href="#Section5" role="tab" aria-controls="Section5" aria-selected="false">Σύγχρονη Τηλεκπαίδευση</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="Section6-tab" data-toggle="tab" href="#Section6" role="tab" aria-controls="Section5" aria-selected="false">Γενικά</a>
+            </li>
+         
         </ul>
 
 
@@ -79,18 +83,26 @@
 
                 <div class="tab-pane fade show active" id="Section1" role="tabpanel" aria-labelledby="Section1-tab">
 
-                    <partial name="_QuestionnaireTab1" />
+                    <partial name="_QuestionnaireATab1" />
 
                 </div>
                 <div class="tab-pane fade" id="Section2" role="tabpanel" aria-labelledby="Section2-tab">
-                    <partial name="_QuestionnaireTab2" />
+                    <partial name="_QuestionnaireATab2" />
 
                 </div>
 
                 <div class="tab-pane fade" id="Section3" role="tabpanel" aria-labelledby="Section3-tab">
 
 
-                    <partial name="_QuestionnaireTab3" />
+                    <partial name="_QuestionnaireATab3" />
+
+
+
+                </div>
+                <div class="tab-pane fade" id="Section4" role="tabpanel" aria-labelledby="Section4-tab">
+
+
+                    <partial name="_QuestionnaireATab4" />
 
 
 
@@ -111,7 +123,7 @@
 
 
 <script>
-    validateHides();
+    validateHidesTableOther();
 </script>
 
 @if (Model.UserStatus.Equals(Questionnaire2.Helpers.UserHelper.UserStatus.Submitted))

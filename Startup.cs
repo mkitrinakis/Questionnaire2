@@ -36,8 +36,14 @@ namespace Questionnaire2
             // end of minedu configure session
             // start of configure mySQL 
             services.AddMvc();
-              services.Add(new ServiceDescriptor(typeof(MySQLContext), new MySQLContext(Configuration.GetValue<string>("ConnectionString"), Configuration.GetValue<int>("QuestionsMax")))) ;
-            // services.Add(new ServiceDescriptor(typeof(MySQLContext), new MySQLContext("MyConnString")));
+
+            IConfigurationSection sectionQuestionsMax = Configuration.GetSection("QuestionsMax");
+            IConfigurationSection sectionQuestionsTableMax = Configuration.GetSection("QuestionsTableMax");
+            string[] questionsMax = sectionQuestionsMax.Get<string[]>();
+            string[] questionsTableMax = sectionQuestionsTableMax.Get<string[]>();
+
+            //   services.Add(new ServiceDescriptor(typeof(MySQLContextA), new MySQLContextA(Configuration.GetValue<string>("ConnectionString"), questionsMax))) ;
+            services.Add(new ServiceDescriptor(typeof(MySQLContextA), new MySQLContextA(Configuration.GetValue<string>("ConnectionString"), questionsMax, questionsTableMax)));
             // end of configure mySQL 
         }
 
@@ -65,7 +71,7 @@ namespace Questionnaire2
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=IndexA}/{id?}");
             });
         }
 

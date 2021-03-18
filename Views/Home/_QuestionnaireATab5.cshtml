@@ -1,0 +1,283 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model Questionnaire2.Models.QuestionnaireModelA
+
+
+
+
+<div class="row">
+    <div class="col-md-12">
+
+    </div>
+</div>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        @Html.DisplayFor(model => model.Q8Label)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        @foreach (KeyValuePair<int, string> descr in Model.Q8Options)
+        {
+            if (!descr.Key.Equals(5))
+            {
+                @Html.RadioButtonFor(model => model.Q8, descr.Key, (Model.Q8.Equals(descr.Key) ? new { @checked = "checked", onchange = "validateHides();" } : new { @checked = "", onchange = "validateHides();" })); ; <label class="control-label">@descr.Value</label><br />
+            }
+            else
+            {
+                @Html.RadioButtonFor(model => model.Q8, descr.Key, (Model.Q8.Equals(descr.Key) ? new { @checked = "checked", onchange = "validateHides();" } : new { @checked = "", onchange = "validateHides();" })); ; <label class="control-label">@descr.Value</label><br />
+            }
+        }
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        @Html.TextAreaFor(model => model.Q8OptionsOther, new { @class = "textareaAnswer" })
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        @Html.DisplayFor(model => model.Q9Label)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        @foreach (KeyValuePair<int, string> descr in Model.Q9Options)
+        {
+            if (!descr.Key.Equals(5))
+            {
+                @Html.RadioButtonFor(model => model.Q9, descr.Key, (Model.Q9.Equals(descr.Key) ? new { @checked = "checked", onchange = "hide('Q9OptionsOther');" } : new { @checked = "", onchange = "hide('Q9OptionsOther');" })); ; <label class="control-label">@descr.Value</label><br />
+            }
+            else
+            {
+                @Html.RadioButtonFor(model => model.Q9, descr.Key, (Model.Q9.Equals(descr.Key) ? new { @checked = "checked", onchange = "show('Q9OptionsOther');" } : new { @checked = "", onchange = "show('Q9OptionsOther');" })); ; <label class="control-label">@descr.Value</label><br />
+            }
+        }
+    </div>
+</div>
+<div class="row" id="rowQ9OptionsOther">
+    <div class="col-md-6">
+        @Html.TextAreaFor(model => model.Q9OptionsOther, new { @class = "textareaAnswer" })
+    </div>
+</div>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        @Html.DisplayFor(model => model.Q10Label)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        @foreach (KeyValuePair<int, string> descr in Model.Q10Options)
+        {
+            @Html.RadioButtonFor(model => model.Q10, descr.Key, Model.Q10.Equals(descr.Key) ? new { @checked = "checked" } : null) <label class="control-label">@descr.Value</label><br />
+        }
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        @Html.DisplayFor(model => model.Q11Label)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        @foreach (KeyValuePair<int, string> descr in Model.Q11Options)
+        {
+            @Html.RadioButtonFor(model => model.Q11, descr.Key, Model.Q11.Equals(descr.Key) ? new { @checked = "checked" } : null) <label class="control-label">@descr.Value</label><br />
+        }
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        @Html.DisplayFor(model => model.Q12Label)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        @foreach (KeyValuePair<int, string> descr in Model.Q12Options)
+        {
+            @Html.RadioButtonFor(model => model.Q12, descr.Key, Model.Q12.Equals(descr.Key) ? new { @checked = "checked" } : null) <label class="control-label">@descr.Value</label><br />
+        }
+
+    </div>
+</div>
+<hr />
+
+<div class="row">
+    <div class="col-md-12">
+        @Html.DisplayFor(model => model.Q13Label)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="qTable">
+            <tr>
+                <td width="25%">&nbsp&nbsp&nbsp </td>
+                @foreach (KeyValuePair<int, string> descr in Model.Q13Options)
+                {
+                    <td width="15%">
+                        <label class="control-label">@descr.Value</label>
+                    </td>
+
+                }
+            </tr>
+            <tr>
+
+                <td>@Html.DisplayFor(model => model.Q131Label)</td>
+                @foreach (KeyValuePair<int, string> descr in Model.Q131Options)
+                {
+                    <td>
+                        @Html.RadioButtonFor(model => model.Q131, descr.Key, Model.Q131.Equals(descr.Key) ? new { @checked = "checked" } : null)
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.Q132Label)</td>
+                @foreach (KeyValuePair<int, string> descr in Model.Q132Options)
+                {
+                    <td>
+                        @Html.RadioButtonFor(model => model.Q132, descr.Key, Model.Q132.Equals(descr.Key) ? new { @checked = "checked" } : null)
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.Q133Label)</td>
+                @foreach (KeyValuePair<int, string> descr in Model.Q133Options)
+                {
+                    <td>
+                        @Html.RadioButtonFor(model => model.Q133, descr.Key, Model.Q133.Equals(descr.Key) ? new { @checked = "checked" } : null)
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.Q134Label)</td>
+                @foreach (KeyValuePair<int, string> descr in Model.Q134Options)
+                {
+                    <td>
+                        @Html.RadioButtonFor(model => model.Q134, descr.Key, Model.Q134.Equals(descr.Key) ? new { @checked = "checked" } : null)
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.Q135Label)</td>
+                @foreach (KeyValuePair<int, string> descr in Model.Q135Options)
+                {
+                    <td>
+                        @Html.RadioButtonFor(model => model.Q135, descr.Key, Model.Q135.Equals(descr.Key) ? new { @checked = "checked" } : null)
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.Q136Label)</td>
+                @foreach (KeyValuePair<int, string> descr in Model.Q136Options)
+                {
+                    <td>
+                        @Html.RadioButtonFor(model => model.Q136, descr.Key, Model.Q136.Equals(descr.Key) ? new { @checked = "checked" } : null)
+                    </td>
+                }
+            </tr>
+        </table>
+    </div>
+</div>
+
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        @Html.DisplayFor(model => model.Q14Label)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        @foreach (KeyValuePair<int, string> descr in Model.Q14Options)
+        {
+            @Html.RadioButtonFor(model => model.Q14, descr.Key, Model.Q14.Equals(descr.Key) ? new { @checked = "checked" } : null) <label class="control-label">@descr.Value</label><br />
+        }
+    </div>
+</div>
+
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        @Html.DisplayFor(model => model.Q15Label)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        @foreach (KeyValuePair<int, string> descr in Model.Q15Options)
+        {
+            @Html.RadioButtonFor(model => model.Q15, descr.Key, Model.Q15.Equals(descr.Key) ? new { @checked = "checked" } : null) <label class="control-label">@descr.Value</label><br />
+        }
+
+    </div>
+</div>
+<hr />
+
+
+<div class="row">
+    <div class="col-md-6">
+        @Html.DisplayFor(model => model.Q16Label)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        @foreach (KeyValuePair<int, string> descr in Model.Q16Options)
+        {
+            @Html.RadioButtonFor(model => model.Q16, descr.Key, Model.Q16.Equals(descr.Key) ? new { @checked = "checked" } : null) <label class="control-label">@descr.Value</label><br />
+        }
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        @Html.DisplayFor(model => model.Q17Label)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        @foreach (KeyValuePair<int, string> descr in Model.Q17Options)
+        {
+            @Html.RadioButtonFor(model => model.Q17, descr.Key, Model.Q17.Equals(descr.Key) ? new { @checked = "checked" } : null) <label class="control-label">@descr.Value</label><br />
+        }
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        @Html.DisplayFor(model => model.Q18Label)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        @foreach (KeyValuePair<int, string> descr in Model.Q18Options)
+        {
+            @Html.RadioButtonFor(model => model.Q18, descr.Key, Model.Q18.Equals(descr.Key) ? new { @checked = "checked" } : null) <label class="control-label">@descr.Value</label><br />
+        }
+
+    </div>
+</div>
+<hr />
+
+
+
+
+
+<div class="row">
+    <div class="col-md-4">
+        <input type="submit" class="btn btn-secondary" value="<< Προηγούμενο" onclick="javascript: goto1(); return (false);" />
+    </div>
+    <div class="col-md-4">
+        &nbsp
+    </div>
+    <div class="col-md-4">
+        <input type="submit" class="btn btn-secondary" value="Επόμενο >>" onclick="javascript: goto3();return (false);" />
+    </div>
+</div>
+

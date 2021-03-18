@@ -1,0 +1,144 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model Questionnaire2.Models.QuestionnaireModelA
+
+
+
+
+<div class="row">
+    <div class="col-md-12">
+
+    </div>
+</div>
+
+
+1)	Σημειώστε το είδος τηλεκπαίδευσης που πραγματοποιήθηκε σε κάθε μάθημα στο ΙΕΚ σας (ασύγχρονη τηλεκπαίδευση, σύγχρονη τηλεκπαίδευση, σύγχρονη και ασύγχρονη, δεν υπήρξε τηλεκπαίδευση, δε γνωρίζω, άλλο – ελεύθερο κείμενο))
+<br />
+<br />
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="oTable">
+            <tr>
+                <th colspan="2" width="30%">@Html.DisplayFor(model => model.Q104.label) </th>
+                @for (int i = 0; i <= 3; i++)
+                {
+                    <th width="10%">
+                        <label class="control-label">@Model.Q104.options.ElementAt(i).Value</label>
+                    </th>
+                }
+                <th width="30%">
+                    <label class="control-label">@Model.Q104.options.ElementAt(4).Value</label>
+                </th>
+            </tr>
+            @for (int i = 0; i < Model.Q104.rows.Count; i++)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(model => model.Q104.rows[i].label.Split("#", StringSplitOptions.RemoveEmptyEntries)[0])</td>
+                    <td>@Html.DisplayFor(model => model.Q104.rows[i].label.Split("#", StringSplitOptions.RemoveEmptyEntries)[1])</td>
+                    @Html.HiddenFor(m => m.Q104.rows[i].label)
+                    @for (int j = 0; j < Model.Q104.rows[i].options.Count; j++)
+                    {
+                        <td align="center">
+                            @Html.RadioButtonFor(model => model.Q104.rows[i].val, Model.Q104.rows[i].options.ElementAt(j).Key, (Model.Q104.rows[i].val ?? "").Equals(Model.Q104.rows[i].options.ElementAt(j).Key) ? new { @checked = "checked", onchange = "validateHidesTableOther();" } : new { @checked = "", onchange = "validateHidesTableOther();" })
+                            @if (j.Equals(4))
+                            {<br /> @Html.TextAreaFor(model => model.Q104.rows[i].detail, new { @class = "textareaAnswer" });
+                        }
+                        </td>
+                    }
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <table class="oTable">
+            <tr>
+                <th colspan="2" width="30%">@Html.DisplayFor(model => model.Q105.label) </th>
+                @for (int i = 0; i <= 3; i++)
+                {
+                    <th width="10%">
+                        <label class="control-label">@Model.Q105.options.ElementAt(i).Value</label>
+                    </th>
+                }
+                <th width="30%">
+                    <label class="control-label">@Model.Q105.options.ElementAt(4).Value</label>
+                </th>
+            </tr>
+            @for (int i = 0; i < Model.Q105.rows.Count; i++)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(model => model.Q105.rows[i].label.Split("#", StringSplitOptions.RemoveEmptyEntries)[0])</td>
+                    <td>@Html.DisplayFor(model => model.Q105.rows[i].label.Split("#", StringSplitOptions.RemoveEmptyEntries)[1])</td>
+                    @Html.HiddenFor(m => m.Q105.rows[i].label)
+                    @for (int j = 0; j < Model.Q105.rows[i].options.Count; j++)
+                    {
+                        <td align="center">
+                            @Html.RadioButtonFor(model => model.Q105.rows[i].val, Model.Q105.rows[i].options.ElementAt(j).Key, (Model.Q105.rows[i].val ?? "").Equals(Model.Q105.rows[i].options.ElementAt(j).Key) ? new { @checked = "checked", onchange = "validateHidesTableOther();" } : new { @checked = "", onchange = "validateHidesTableOther();" })
+                            @if (j.Equals(4))
+                            {<br /> @Html.TextAreaFor(model => model.Q105.rows[i].detail, new { @class = "textareaAnswer" });
+                        }
+                        </td>
+                    }
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <table class="oTable">
+            <tr>
+                <th colspan="2" width="30%">@Html.DisplayFor(model => model.Q106.label) </th>
+                @for (int i = 0; i <= 3; i++)
+                {
+                    <th width="10%">
+                        <label class="control-label">@Model.Q106.options.ElementAt(i).Value</label>
+                    </th>
+                }
+                <th width="30%">
+                    <label class="control-label">@Model.Q106.options.ElementAt(4).Value</label>
+                </th>
+            </tr>
+            @for (int i = 0; i < Model.Q106.rows.Count; i++)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(model => model.Q106.rows[i].label.Split("#", StringSplitOptions.RemoveEmptyEntries)[0])</td>
+                    <td>@Html.DisplayFor(model => model.Q106.rows[i].label.Split("#", StringSplitOptions.RemoveEmptyEntries)[1])</td>
+                    @Html.HiddenFor(m => m.Q106.rows[i].label)
+                    @for (int j = 0; j < Model.Q106.rows[i].options.Count; j++)
+                    {
+                        <td align="center">
+                            @Html.RadioButtonFor(model => model.Q106.rows[i].val, Model.Q106.rows[i].options.ElementAt(j).Key, (Model.Q106.rows[i].val ?? "").Equals(Model.Q106.rows[i].options.ElementAt(j).Key) ? new { @checked = "checked", onchange = "validateHidesTableOther();" } : new { @checked = "", onchange = "validateHidesTableOther();" })
+                            @if (j.Equals(4))
+                            {<br /> @Html.TextAreaFor(model => model.Q106.rows[i].detail, new { @class = "textareaAnswer" });
+                        }
+                        </td>
+                    }
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-4">
+        <input type="submit" class="btn btn-secondary" value="<< Προηγούμενο" onclick="javascript: goto1(); return (false);" />
+    </div>
+    <div class="col-md-4">
+        &nbsp
+    </div>
+    <div class="col-md-4">
+        <input type="submit" class="btn btn-secondary" value="Επόμενο >>" onclick="javascript: goto3();return (false);" />
+    </div>
+</div>
+

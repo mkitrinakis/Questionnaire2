@@ -3,9 +3,17 @@
     ViewBag.Title = "Log In";
 
 }
-<h2>Σελίδα Login με το ΠΣΔ</h2>
+<h2>Σελίδα Login, Παρακαλούμε συμπληρώστε UserName, Password που σας έχουν δωθεί</h2>
 <h2> @ViewBag.Message</h2>
 
+
+@if (!String.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+<div class="alert alert-danger col-md-12">
+
+    @ViewBag.ErrorMessage
+</div>
+}
 
 @using (Html.BeginForm("LogIn", "Home", FormMethod.Post))
 {
@@ -17,19 +25,38 @@
         <div class="col-md-2">
             User Name
         </div>
-        <div class="col-md-10">
-            <input type="text" class="form-control" name="loginName" id="loginName"  />
+        <div class="col-md-4">
+            <input type="text" class="form-control" name="loginName" id="loginName"  @ViewBag.DisabledPropery  />
+        </div>
+        <div class="col-md-6">
+            &nbsp
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+        <hr/> 
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            Password
+        </div>
+        <div class="col-md-4">
+            <input type="password" class="form-control" name="password" id="password"   @ViewBag.DisabledPropery />
+        </div>
+        <div class="col-md-6">
+            &nbsp
         </div>
     </div>
     <div class="row">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" class="btn btn-primary " value="ΕΙΣΟΔΟΣ" />
         </div>
-        </div> 
     </div>
+</div>
 
-    }
-    <br />
+}
+<br />
 
 
 

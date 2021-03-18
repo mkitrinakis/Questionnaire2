@@ -12,6 +12,7 @@ namespace Questionnaire2.Helpers
         public string SQLUserID { get; set; }
         public string SQLUserPassword { get; set; }
 
+        public string[] QuestionsMax { get; set;  } 
 
     }
 }

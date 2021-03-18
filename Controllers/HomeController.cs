@@ -18,22 +18,26 @@ namespace Questionnaire2.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        private readonly IOptions<AppSettings> _appSettings;
+        private readonly AppSettings _appSettings;
 
         private int questionnaireID = 1 ;
-        private string userName = "UserName1"; 
+        
 
-        public HomeController(ILogger<HomeController> logger, IOptions<AppSettings> appSettings)
+        public HomeController(ILogger<HomeController> logger, IOptions<AppSettings> settings)
         {
             _logger = logger;
-            _appSettings = appSettings; 
+            _appSettings = settings.Value; 
         }
 
-        public IActionResult Index()
+        public IActionResult IndexA()
         {
             // ViewBag.Login = HttpContext.Session.GetString("LoginName") ?? "N/A"; 
-            MySQLContext mySQLContext = HttpContext.RequestServices.GetService(typeof(Questionnaire2.Models.MySQLContext)) as MySQLContext;
-            ViewBag.UserStatus = mySQLContext.getUserStatus(questionnaireID, userName); 
+            MySQLContextA mySQLContext = HttpContext.RequestServices.GetService(typeof(Questionnaire2.Models.MySQLContextA)) as MySQLContextA;
+            //  ViewBag.UserStatus = mySQLContext.getUserStatus(questionnaireID, userName); 
+            InMemory.UserToken userToken = InMemory.getUserToken(HttpContext);
+            ViewBag.IsAuthenticated = (userToken.isAuthenticated) ? "YES" : "NO"; 
+            ViewBag.UserStatus =   mySQLContext.getUserStatus(questionnaireID, userToken.userName);
+
             return View();
         }
 
@@ -46,95 +50,131 @@ namespace Questionnaire2.Controllers
         {
             HttpContext.Session.SetString("LoginName", null);
             ViewBag.LoginName = null; 
-            return RedirectToAction("Index");
+            return RedirectToAction("IndexA");
         }
 
         public IActionResult LogIn()
         {
-
+            ViewBag.ErrorMessage = "";
+            ViewBag.DisabledPropery = "";
+            if (InMemory.exceededAuthFailures(HttpContext))
+            {
+                ViewBag.ErrorMessage = "Πολλές Φορές Λάθος 'Ονομα Χρήστη' ή Password, Βγείτε από την εφαρμογή, κλείστε τον broswer και ξαναπροσπαθήστε";
+                ViewBag.DisabledPropery = "Disabled = \"Disabled\"";
+            }
             return View(); 
         }
 
         [HttpPost]
-        public IActionResult LogIn(string loginName)
+        public IActionResult LogIn(string loginName, string password)
         {
-            HttpContext.Session.SetString("LoginName", loginName);
-            ViewBag.LoginName = loginName ;
-            return RedirectToAction("Index");
+            ViewBag.ErrorMessage = "";
+            ViewBag.DisabledPropery = "";
+            MySQLContextA mySQLContext = HttpContext.RequestServices.GetService(typeof(Questionnaire2.Models.MySQLContextA)) as MySQLContextA;
+            if (InMemory.exceededAuthFailures(HttpContext))
+            {
+                ViewBag.ErrorMessage = "Πολλές Φορές Λάθος 'Ονομα Χρήστη' ή Password, Βγείτε από την εφαρμογή, κλείστε τον broswer και ξαναπροσπαθήστε";
+                ViewBag.DisabledPropery = "Disabled = \"Disabled\"";
+            }
+            else
+            {
+                string userName = mySQLContext.getUserToken(loginName, password);
+                if (!userName.Trim().Equals(""))
+                {
+                    InMemory.resetAuthFailures(HttpContext);
+                    HttpContext.Session.SetString("LoginName", loginName);
+                    ViewBag.LoginName = loginName;
+                    return RedirectToAction("IndexA");
+                }
+                else
+                {
+                    InMemory.increaseAuthFailures(HttpContext);
+                    ViewBag.ErrorMessage = "Λάθος Ονομα Χρήστη ή Password";
+
+                }
+            }
+
+            return View();
         }
 
-
-        public ActionResult Questionnaire()
+        public ActionResult QuestionnaireA()
         {
-            // InMemory.UserToken userToken = InMemory.getUserToken(HttpContext);
-            InMemory.UserToken userToken = new InMemory.UserToken()  { isAuthenticated = true, userName = userName };
-           // ViewBag.TempVar = "TempVal";
+             InMemory.UserToken userToken = InMemory.getUserToken(HttpContext);
+            // InMemory.UserToken userToken = new InMemory.UserToken(UserToken()  { isAuthenticated = true, userName = userName };
+           
             if (!userToken.isAuthenticated) { return RedirectToAction("LogIn");  }
-            MySQLContext mySQLContext = HttpContext.RequestServices.GetService(typeof(Questionnaire2.Models.MySQLContext)) as MySQLContext;
+            MySQLContextA mySQLContext = HttpContext.RequestServices.GetService(typeof(Questionnaire2.Models.MySQLContextA)) as MySQLContextA;
             // QuestionnaireModel questionnaire = InMemory.GetQuestionnaire(); 
             QuestionnaireModel questionnaire = mySQLContext.getAnswers(1, userToken.userName);
             questionnaire.InfoMessage = questionnaire.InfoMessage ?? "";
             questionnaire.ErrorMessage = questionnaire.ErrorMessage ?? ""; 
             questionnaire.UserName = userToken.userName;
-            questionnaire.UserStatus = mySQLContext.getUserStatus(questionnaireID, userName);
+            questionnaire.UserStatus = mySQLContext.getUserStatus(questionnaireID, userToken.userName);
             return View(questionnaire);
         }
 
         [HttpPost]
-        public ActionResult Questionnaire(QuestionnaireModel questionnaire)
+        public ActionResult QuestionnaireA(QuestionnaireModelA questionnaire)
         {
-            string result = "";
-            MySQLContext mySQLContext = HttpContext.RequestServices.GetService(typeof(Questionnaire2.Models.MySQLContext)) as MySQLContext;
+            
+            MySQLContextA mySQLContext = HttpContext.RequestServices.GetService(typeof(Questionnaire2.Models.MySQLContextA)) as MySQLContextA;
             questionnaire.clearMessages(); 
             string userName = questionnaire.UserName;
             if (!userName.Trim().Equals(""))
             {
                 if (!mySQLContext.postAnswers(1, userName , questionnaire)) { questionnaire.ErrorMessage += "... CHECK THE INPUT !"; }
+              
             }
             else
             {
                 { questionnaire.ErrorMessage += "... IT SEEMS YOU LOST THE SESSION !"; }
             }
-         
+            InMemory.UserToken userToken = InMemory.getUserToken(HttpContext);
+            questionnaire = mySQLContext.getAnswers(1, userToken.userName);
             return View(questionnaire);
         }
 
 
         [HttpPost]
-        public ActionResult QSave(QuestionnaireModel questionnaire)
+        public ActionResult QSave(QuestionnaireModelA questionnaire)
         {
-            string result = "";
-            MySQLContext mySQLContext = HttpContext.RequestServices.GetService(typeof(Questionnaire2.Models.MySQLContext)) as MySQLContext;
             
-            questionnaire.clearMessages(); 
+            MySQLContextA mySQLContext = HttpContext.RequestServices.GetService(typeof(Questionnaire2.Models.MySQLContextA)) as MySQLContextA;
+            
+            questionnaire.clearMessages();
+            string userName = InMemory.getUserToken(HttpContext).userName;
             if (!userName.Trim().Equals(""))
             {
                 if (!mySQLContext.postAnswers(questionnaireID, userName, questionnaire)) { questionnaire.ErrorMessage += "... CHECK THE INPUT !"; }
                 else
                 {
+                    questionnaire = mySQLContext.getAnswers(1, userName);
                     questionnaire.InfoMessage = "H Προσωρινή Αποθήκευση έγινε επιτυχώς. Μπορείτε να συνεχίσετε με την συμπλήρωση του ερωτηματολογίου.";
                 }
             }
             else
             {
-                { questionnaire.ErrorMessage += "... IT SEEMS YOU LOST THE SESSION !"; }
+                {
+                    questionnaire = mySQLContext.getAnswers(1, userName);
+                    questionnaire.ErrorMessage += "... IT SEEMS YOU LOST THE SESSION !";
+                }
             }
-            return View("Questionnaire", questionnaire);
+            return View("QuestionnaireA", questionnaire);
         }
 
-        public ActionResult QSubmit(QuestionnaireModel questionnaire)
+        public ActionResult QSubmit(QuestionnaireModelA questionnaire)
         {
-            string result = "";
+            
 
-            List<string> errors = questionnaire.validateNotFilled();
+            List<string> errors = questionnaire.validateNotFilled(_appSettings);
             bool passed = errors.Count.Equals(0);
 
             if (passed)
             {
-                
+                string userName = InMemory.getUserToken(HttpContext).userName; 
                 if (!userName.Trim().Equals(""))
                 {
-                    MySQLContext mySQLContext = HttpContext.RequestServices.GetService(typeof(Questionnaire2.Models.MySQLContext)) as MySQLContext;
+                    MySQLContextA mySQLContext = HttpContext.RequestServices.GetService(typeof(Questionnaire2.Models.MySQLContextA)) as MySQLContextA;
                     questionnaire.clearMessages(); 
                     if (!mySQLContext.postAnswers(questionnaireID, userName, questionnaire))  // save failed 
                     { questionnaire.ErrorMessage += "... CHECK THE INPUT !"; }

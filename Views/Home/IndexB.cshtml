@@ -1,0 +1,32 @@
+﻿@using Questionnaire2.Helpers ;  
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+    <div class="text-center">
+        <h3>Ερωτηματολόγιο για την Τηλεεκπαίδευση</h3>
+
+        <p>@ViewBag.Login </p>
+
+        @if (ViewBag.IsAuthenticated.Equals("NO"))
+        {
+            <p>  @Html.ActionLink("Είσοδος στο σύστημα (Σύνδεση με το UserName/Password που σας έχει αποσταλεί)", "Login", "Home")   </p>
+        }
+        @if (ViewBag.IsAuthenticated.Equals("YES"))
+        {
+            @if (ViewBag.UserStatus.Equals(UserHelper.UserStatus.Draft))
+            {
+                <p>  @Html.ActionLink("Συνεχίστε την Συμπλήρωση του Ερωτηματολογίου (Edit)", "QuestionnaireB", "Home")   </p>
+            }
+            @if (ViewBag.UserStatus.Equals(UserHelper.UserStatus.New))
+            {
+                <p>  @Html.ActionLink("Συμπληρώστε το Ερωτηματολόγιο", "QuestionnaireB", "Home")   </p>
+            }
+            @if (ViewBag.UserStatus.Equals(UserHelper.UserStatus.Submitted))
+            {
+                <p>  Έχετε ήδη υποβάλει το Ερωτηματολόγιο </p>
+                <p>  @Html.ActionLink("Προβολή του Ερωτηματολογίου", "QuestionnaireB", "Home")   </p>
+            }
+        }
+        </div>
